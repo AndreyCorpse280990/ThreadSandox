@@ -27,6 +27,15 @@ namespace ThreadSandboxExample
             }
         }
 
+        static void PrintHelloWorld_x7()
+        {
+            for (int i = 1; i <= 7; i++)
+            {
+                Console.WriteLine($"{i}. Hello World");
+                Thread.Sleep(100);
+            }
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Press any key to start");
@@ -35,14 +44,17 @@ namespace ThreadSandboxExample
             // 1. создать объекты потока
             Thread helloThread = new Thread(PrintHello_x5);
             Thread worldThread = new Thread(PrintWorld_x10);
+            Thread helloWorldThread = new Thread(PrintHelloWorld_x7);
 
             // 2. запустить объекты потока
             helloThread.Start();
             worldThread.Start();
+            helloWorldThread.Start();
 
             // дождаться щавершения потоков
-            helloThread.Join(); // текущий поток остановится до тех пор, пока helloThread не завершит работу
+            helloThread.Join(); // Текущий поток остановится до тех пор, пока helloThread не завершит работу
             worldThread.Join();
+            helloWorldThread.Join();
 
             Console.WriteLine("Press any key to exit");
             Console.ReadKey(true);
